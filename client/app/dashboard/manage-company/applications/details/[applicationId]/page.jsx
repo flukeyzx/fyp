@@ -345,7 +345,7 @@ export default function ApplicantDetail({ params }) {
               </div>
 
               <Dialog open={openModal} onOpenChange={setOpenModal}>
-                <DialogContent className="sm:max-w-md">
+                <DialogContent className="sm:max-w-xl py-12 px-8">
                   <DialogHeader>
                     <DialogTitle>Ask about this applicant</DialogTitle>
                   </DialogHeader>
@@ -376,6 +376,7 @@ export default function ApplicantDetail({ params }) {
                         }
                       }}
                       disabled={isAiLoading || !aiPrompt}
+                      className="cursor-pointer w-full bg-primary hover:bg-primary/90 font-semibold rounded-lg hover:scale-[1.02] transition duration-300 ease-in-out"
                     >
                       {isAiLoading ? "Thinking..." : "Ask"}
                     </Button>

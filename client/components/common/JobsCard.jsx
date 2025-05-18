@@ -23,7 +23,7 @@ export default function JobCard({ job, token }) {
 
   return (
     <Link href={`/dashboard/browse/${job.id}`}>
-      <Card className="flex flex-col bg-card rounded-xl shadow-md hover:shadow-lg hover:opacity-90 cursor-pointer transition-all duration-300 p-4">
+      <Card className="flex flex-col bg-card rounded-xl shadow-md hover:shadow-lg hover:opacity-90 cursor-pointer transition-all duration-300 px-4 max-lg:px-2 py-8">
         <CardContent className="flex flex-col gap-3">
           <div className="flex justify-between items-center mb-2">
             <div
@@ -42,7 +42,7 @@ export default function JobCard({ job, token }) {
               </div>
               <span className="relative group transition-all duration-200 ease-in hover:opacity-90">
                 {job.company.name}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-card-foreground transition-all duration-200 ease-in group-hover:w-full"></span>
+                <span className="absolute -bottom-0.5 left-0 w-0 h-[2px] bg-muted-foreground transition-all duration-200 ease-in group-hover:w-full"></span>
               </span>
             </div>
 
@@ -50,7 +50,7 @@ export default function JobCard({ job, token }) {
               <div
                 className={`px-3 py-1 rounded-md text-xs font-semibold ${
                   job.employmentType === "Remote"
-                    ? "bg-teal-100 text-teal-600"
+                    ? "bg-lime-100 text-lime-600"
                     : job.employmentType === "On-Site"
                     ? "bg-amber-100 text-amber-600"
                     : job.employmentType === "Hybrid"
@@ -106,7 +106,7 @@ export default function JobCard({ job, token }) {
               Apply Now
             </Button>
             <Button
-              className="w-10 h-10 bg-neutral-600 hover:bg-neutral-700 flex items-center justify-center"
+              className="cursor-pointer w-10 h-10 bg-neutral-600 hover:bg-neutral-700 flex items-center justify-center"
               disabled={bookmarkLoading}
               onClick={async (e) => {
                 e.preventDefault();
@@ -139,9 +139,9 @@ export default function JobCard({ job, token }) {
               {bookmarkLoading ? (
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
               ) : isSavedJobsPage || isSaved ? (
-                <Bookmark size={18} fill="currentColor" />
+                <Bookmark size={18} fill="white" className="text-white" />
               ) : (
-                <Bookmark size={18} />
+                <Bookmark size={18} className="text-white" />
               )}
             </Button>
           </div>

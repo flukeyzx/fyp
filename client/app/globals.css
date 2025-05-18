@@ -157,7 +157,7 @@ li {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
-  .dark {
+  /* .dark {
     --background: 0 0% 12%;
     --foreground: 0 0% 98%;
     --card: 0 0% 16%;
@@ -183,8 +183,52 @@ li {
     --chart-3: 197 37% 24%;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
+  } */
+
+  .dark {
+    --background: 0 0% 10%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 14%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 18%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 170 90% 52%;
+    --primary-foreground: 0 0% 10%;
+    --primary-light: 170 20% 18%;
+
+    --secondary: 210 60% 60%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 4% 20%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 48 100% 55%;
+    --accent-foreground: 0 0% 10%;
+
+    --destructive: 0 80% 50%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 4% 25%;
+    --input: 240 4% 16%;
+    --ring: 170 90% 60%;
+
+    --chart-1: 170 72% 54%;
+    --chart-2: 197 37% 50%;
+    --chart-3: 260 40% 60%;
+    --chart-4: 43 85% 65%;
+    --chart-5: 12 85% 55%;
   }
 }
+
+/*
+  considered primary colors: 
+  parrot green -> 125 75% 65%
+  golden yellow -> 48 100% 55%
+  orange yellow -> 48 100% 65%
+  cyan -> 190 100% 65%
+  neon ->  175 75% 55%
+*/
 
 @layer base {
   * {

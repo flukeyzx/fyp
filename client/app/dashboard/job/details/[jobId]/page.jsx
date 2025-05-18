@@ -100,7 +100,7 @@ export default function JobDetailPreview({ params }) {
             </h2>
             <div className="job-description">
               <div
-                className="prose max-w-none list-disc text-foreground/60"
+                className=" list-disc text-foreground/60"
                 dangerouslySetInnerHTML={{ __html: job.description }}
               />
             </div>

@@ -6,7 +6,6 @@ import ThemeProvider from "@/context/ThemeContext";
 import TokenProvider from "@/context/TokenContext";
 import { cookies } from "next/headers";
 import AuthProvider from "@/context/AuthContext";
-import { redirect } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],

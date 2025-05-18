@@ -183,15 +183,15 @@ export default function JobsListWithSearch() {
         <div className="flex flex-1 gap-2 items-center">
           <Input
             type="text"
-            placeholder="Search jobs..."
+            placeholder="Type a keyword, role, or skill to begin your search... "
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-            className="!h-11 !px-4 text-sm rounded-full bg-popover text-muted-foreground flex-1"
+            className="!h-11 !px-6 !rounded-full flex-1 text-sm"
           />
           <Button
             onClick={handleSearch}
-            className="rounded-full px-4 !py-3 text-sm cursor-pointer"
+            className="rounded-full px-4 !py-3 text-sm cursor-pointer bg-secondary hover:bg-secondary/80 text-secondary-foreground transition duration-200 ease-in-out"
           >
             <Search className="h-4 w-4" /> Search
           </Button>
@@ -201,8 +201,7 @@ export default function JobsListWithSearch() {
           <PopoverTrigger asChild>
             <Button
               size="icon"
-              variant="ghost"
-              className="rounded-full border border-muted bg-card dark:bg-popover hover:bg-muted"
+              className="cursor-pointer hover:opacity-90 hover:scale-105 rounded-full border border-muted bg-card dark:bg-popover hover:bg-muted"
             >
               <Filter className="w-5 h-5 text-muted-foreground" />
             </Button>
@@ -221,7 +220,7 @@ export default function JobsListWithSearch() {
                       "popover"
                     );
                   }}
-                  className="w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
+                  className="cursor-pointer w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
                 >
                   <option value="">Select location</option>
                   {locationsList.map((loc, i) => (
@@ -248,7 +247,7 @@ export default function JobsListWithSearch() {
                       "popover"
                     );
                   }}
-                  className="w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
+                  className="cursor-pointer w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
                 >
                   <option value="">Select Job Type</option>
                   {jobTypeList.map((type, i) => (
@@ -275,7 +274,7 @@ export default function JobsListWithSearch() {
                       "popover"
                     );
                   }}
-                  className="w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
+                  className="cursor-pointer w-full text-sm rounded-md px-3 py-2 border border-input bg-card"
                 >
                   <option value="">Select Experience</option>
                   {experienceOptions.map((exp, i) => (
@@ -306,7 +305,7 @@ export default function JobsListWithSearch() {
                           "popover"
                         );
                       }}
-                      className="w-full text-sm rounded-md px-3 py-2 border border-input bg-card !h-9"
+                      className="cursor-pointer w-full text-sm rounded-md px-3 py-2 border border-input bg-card !h-9"
                     >
                       <option value="">Select Currency</option>
                       {currencies.map((cur, i) => (
@@ -362,9 +361,8 @@ export default function JobsListWithSearch() {
             </div>
 
             <Button
-              variant="outline"
               size="sm"
-              className="rounded-full text-xs"
+              className="rounded-full text-sm cursor-pointer bg-destructive hover:bg-destructive/80 text-destructive-foreground transition duration-200 ease-in-out"
               onClick={clearAllFilters}
             >
               Clear All Filters
