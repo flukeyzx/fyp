@@ -47,14 +47,16 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   ${isOpen ? "gap-3 px-4 justify-start" : "justify-center px-0"}
                   ${
                     isActive
-                      ? "bg-primary-light text-primary"
-                      : "hover:bg-primary-light hover:text-primary"
+                      ? "text-primary-light bg-primary dark:bg-primary-light dark:text-primary"
+                      : "hover:bg-primary hover:text-primary-light dark:hover:bg-primary-light dark:hover:text-primary"
                   }
                 `}
               >
                 <Icon
                   size={20}
-                  className={`flex-shrink-0 ${isActive ? "text-primary" : ""}`}
+                  className={`flex-shrink-0 ${
+                    isActive ? "text-priamry-light dark:text-primary" : ""
+                  }`}
                 />
                 <div
                   className={`overflow-hidden transition-all duration-300 ease-in-out ${

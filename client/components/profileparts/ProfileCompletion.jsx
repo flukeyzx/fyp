@@ -20,7 +20,7 @@ const ProfileCompletion = ({ profileScore }) => {
   }
 
   return (
-    <div className="bg-gradient-to-r from-primary to-primary-light rounded-xl p-6 text-foreground">
+    <div className="bg-gradient-to-r from-primary/20 via-primary/30 to-primary/40 rounded-xl p-6 text-foreground">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div className="space-y-1">
           <h2 className="text-xl font-semibold">Profile Strength</h2>

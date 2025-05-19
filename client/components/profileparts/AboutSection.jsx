@@ -5,20 +5,20 @@ const AboutSection = ({ user }) => {
   return (
     <Card className="border-0 shadow-sm">
       <CardHeader>
-        <CardTitle className="text-xl flex items-center text-foreground gap-2">
+        <CardTitle className="text-xl flex items-center text-card-foreground gap-2">
           <UserPen className="w-5 h-5 text-primary" />
           About
         </CardTitle>
       </CardHeader>
       <CardContent>
         {user.bio ? (
-          <p className="text-foreground/60">{user.bio}</p>
+          <p className="text-card-foreground/60">{user.bio}</p>
         ) : (
           <div className="text-foreground/50 italic">No bio added yet</div>
         )}
 
         {user.skills && user.skills.length > 0 && (
-          <div className="space-y-2">
+          <div className="space-y-2 mt-2">
             <h3 className="text-sm font-medium text-foreground">Skills</h3>
             <div className="flex flex-wrap gap-2">
               {user.skills.map((skill) => (

@@ -113,7 +113,7 @@ export default function ApplicationsPage({ params }) {
 
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="flex flex-wrap gap-4">
-          <div className="flex rounded-lg border border-foreground overflow-hidden">
+          <div className="flex rounded-lg border border-secondary overflow-hidden">
             {["all", "pending", "shortlisted", "accepted", "rejected"].map(
               (filter) => (
                 <button
@@ -121,8 +121,8 @@ export default function ApplicationsPage({ params }) {
                   onClick={() => setActiveFilter(filter)}
                   className={`px-4 py-2 text-sm font-medium flex-1 cursor-pointer ${
                     activeFilter === filter
-                      ? "bg-foreground text-background"
-                      : "text-foreground/60 hover:bg-foreground hover:text-background/60"
+                      ? "bg-secondary text-secondary-foreground"
+                      : "text-secondary-foreground/80 hover:bg-secondary hover:text-secondary-foreground/70"
                   }`}
                 >
                   {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -130,15 +130,15 @@ export default function ApplicationsPage({ params }) {
               )
             )}
           </div>
-          <div className="flex rounded-lg border border-foreground overflow-hidden">
+          <div className="flex rounded-lg border border-secondary overflow-hidden">
             {["newest", "oldest"].map((sort) => (
               <button
                 key={sort}
                 onClick={() => setDateSort(sort)}
-                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 ${
+                className={`px-4 py-2 text-sm font-medium flex items-center gap-2 cursor-pointer ${
                   dateSort === sort
-                    ? "bg-foreground text-background"
-                    : "text-foreground/60 hover:bg-foreground hover:text-background/60"
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-secondary-foreground/80 hover:bg-secondary hover:text-secondary-foreground/70"
                 }`}
               >
                 <Calendar className="w-4 h-4" />
@@ -148,7 +148,7 @@ export default function ApplicationsPage({ params }) {
           </div>
         </div>
 
-        <div className="bg-foreground text-background px-4 py-1 rounded-full text-sm font-medium">
+        <div className="bg-secondary text-secondary-foreground px-4 py-1 rounded-full text-sm font-medium">
           {filteredApplications.length}{" "}
           {filteredApplications.length === 1 ? "application" : "applications"}
         </div>
@@ -171,7 +171,7 @@ export default function ApplicationsPage({ params }) {
             return (
               <div
                 key={application.id}
-                className="rounded-lg border hover:bg-card transition-all overflow-hidden"
+                className="rounded-lg border hover:bg-primary/12 transition-all overflow-hidden"
               >
                 <Link
                   href={`/dashboard/manage-company/applications/details/${application.id}`}

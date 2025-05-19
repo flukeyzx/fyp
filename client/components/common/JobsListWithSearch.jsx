@@ -416,7 +416,7 @@ export default function JobsListWithSearch() {
         </div>
       )}
 
-      <div className="grid xl:grid-cols-3 lg:grid-cols-2 gap-4 p-4">
+      <div className="grid 2xl:grid-cols-3 lg:grid-cols-2 gap-4 p-4">
         {jobs.length > 0
           ? jobs.map((job, i) => (
               <JobCard key={i} job={job} token={authToken} />

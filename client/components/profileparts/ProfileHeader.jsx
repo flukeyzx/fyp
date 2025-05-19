@@ -187,7 +187,7 @@ const ProfileHeader = ({
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <Button
           onClick={onEdit}
-          className="gap-2 bg-foreground hover:bg-foreground/80 hover:opacity-80 cursor-pointer text-background"
+          className="gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/80 hover:opacity-80 cursor-pointer"
         >
           <Pencil className="w-4 h-4" />
           Edit Profile
@@ -195,10 +195,10 @@ const ProfileHeader = ({
       </div>
 
       {localPreview && (
-        <div className="fixed inset-0 bg-black/70 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
           <div className="bg-background p-6 rounded-lg max-w-md w-full relative">
             {isUploading && (
-              <div className="absolute inset-0 bg-black/50 flex items-center justify-center rounded-lg">
+              <div className="absolute inset-0 flex items-center justify-center rounded-lg">
                 <div className="text-white">Uploading...</div>
               </div>
             )}

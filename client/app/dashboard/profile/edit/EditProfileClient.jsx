@@ -127,10 +127,8 @@ export default function EditProfileClient({ user, token, refetch }) {
   return (
     <div className="max-w-2xl mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-          Edit Your Profile
-        </h1>
-        <p className="text-gray-600 dark:text-gray-400 mt-2">
+        <h1 className="text-3xl font-bold">Edit Your Profile</h1>
+        <p className="text-muted-foreground mt-2">
           Update your personal information and professional details
         </p>
       </div>
@@ -198,11 +196,11 @@ export default function EditProfileClient({ user, token, refetch }) {
           )}
 
           {showLocationSuggestions && filteredLocations.length > 0 && (
-            <div className="absolute z-10 mt-1 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-md shadow-lg max-h-60 overflow-auto">
+            <div className="absolute z-10 mt-1 w-full rounded-md bg-input  shadow-lg max-h-60 overflow-auto">
               {filteredLocations.map((location, index) => (
                 <div
                   key={index}
-                  className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer"
+                  className="px-4 py-2 cursor-pointer hover:bg-muted-foreground hover:text-muted"
                   onMouseDown={() => selectLocation(location)}
                 >
                   {location}
@@ -215,7 +213,7 @@ export default function EditProfileClient({ user, token, refetch }) {
         <div>
           <label
             htmlFor="skills"
-            className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+            className="block text-sm font-medium text-muted-foreground mb-1"
           >
             Skills
           </label>
@@ -226,9 +224,9 @@ export default function EditProfileClient({ user, token, refetch }) {
             onChange={(e) => setSkillInput(e.target.value)}
             onKeyDown={handleSkillKeyDown}
             placeholder="Type a skill and press Enter"
-            className="border-gray-300 dark:border-gray-600 !h-10"
+            className="!h-10"
           />
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <p className="mt-1 text-sm text-muted-foreground">
             {formData.skills.length >= 8 ? (
               <span className="text-red-500">Maximum of 8 skills reached</span>
             ) : (
@@ -241,13 +239,13 @@ export default function EditProfileClient({ user, token, refetch }) {
               {formData.skills.map((skill, index) => (
                 <div
                   key={index}
-                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-gray-300 dark:bg-gray-700 text-sm"
+                  className="flex items-center gap-1 px-3 py-1 rounded-full bg-primary-light/60 text-primary border border-primary text-sm"
                 >
                   {skill}
                   <button
                     type="button"
                     onClick={() => removeSkill(index)}
-                    className="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
+                    className="cursor-pointer"
                   >
                     <X size={14} />
                   </button>
@@ -270,8 +268,7 @@ export default function EditProfileClient({ user, token, refetch }) {
             value={formData.bio}
             onChange={handleChange}
             className={cn(
-              "!h-48",
-              "border-gray-300 dark:border-gray-600",
+              "!h-48 !border !border-border",
               errors.bio && "border-red-500 focus-visible:ring-red-500"
             )}
             placeholder="Tell us about yourself..."
@@ -295,7 +292,11 @@ export default function EditProfileClient({ user, token, refetch }) {
           <Button type="button" variant="outline" onClick={() => router.back()}>
             Cancel
           </Button>
-          <Button type="submit" disabled={isSubmitting}>
+          <Button
+            type="submit"
+            className="cursor-pointer"
+            disabled={isSubmitting}
+          >
             {isSubmitting ? "Saving..." : "Save Changes"}
           </Button>
         </div>

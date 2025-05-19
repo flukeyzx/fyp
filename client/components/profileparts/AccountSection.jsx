@@ -37,7 +37,7 @@ export default function AccountSection({
             {isFreePlan && (
               <Button
                 onClick={handlePlanUpgrade}
-                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700"
+                className="bg-gradient-to-r from-accent to-accent/80 hover:from-accent/80 hover:to-accent cursor-pointer text-accent-foreground"
               >
                 Upgrade
               </Button>
@@ -77,10 +77,9 @@ export default function AccountSection({
             </div>
             {!isPasswordChanging && (
               <Button
-                variant="outline"
                 size="sm"
                 onClick={() => setIsPasswordChanging(true)}
-                className="gap-2"
+                className="gap-2 bg-background text-foreground hover:bg-background/80 hover:opacity-90 cursor-pointer"
               >
                 <Key className="w-4 h-4" />
                 {hasPassword ? "Change" : "Set"}
@@ -148,7 +147,7 @@ export default function AccountSection({
                 <Button
                   onClick={handlePasswordChange}
                   disabled={isPasswordUpdating}
-                  className="flex-1"
+                  className="flex-1 cursor-pointer"
                 >
                   {isPasswordUpdating ? (
                     <Loader className="w-4 h-4 animate-spin" />
@@ -157,12 +156,11 @@ export default function AccountSection({
                   )}
                 </Button>
                 <Button
-                  variant="outline"
                   onClick={() => {
                     setIsPasswordChanging(false);
                     setPasswords({ current: "", new: "", confirm: "" });
                   }}
-                  className="flex-1"
+                  className="flex-1 bg-background text-foreground cursor-pointer hover:bg-background/80 hover:opacity-90"
                 >
                   Cancel
                 </Button>

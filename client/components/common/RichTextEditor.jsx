@@ -247,7 +247,7 @@ export default function RichTextEditor({
 
       {showSubmitButton && (
         <Button
-          className="cursor-pointer"
+          className="cursor-pointer px-8 py-5 hover:bg-primary/90 hover:scale-[1.02] transition-all duration-300 ease-in-out"
           onClick={async () => {
             const html = editor.getHTML();
             if (!html || html === `<p>${placeholder}</p>`) {

@@ -83,7 +83,7 @@ const ResumeSection = ({
         </div>
 
         <div
-          className="border-dashed border-2 border-gray-300 p-6 rounded-lg cursor-pointer text-center text-gray-700 hover:bg-muted transition"
+          className="border-dashed border-2 border-card-foreground/70 p-6 rounded-lg cursor-pointer text-center text-muted-foreground text-sm hover:bg-muted transition"
           onDrop={handleDrop}
           onDragOver={handleDragOver}
           onClick={handleClickContainer}
@@ -105,7 +105,7 @@ const ResumeSection = ({
             <Button
               onClick={onResumeUpload}
               disabled={!selectedResume || isResumeUploading}
-              className="gap-2 disabled:opacity-100 disabled:cursor-not-allowed"
+              className="gap-2 disabled:opacity-100 disabled:cursor-not-allowed cursor-pointer"
             >
               {isResumeUploading ? (
                 <Loader className="w-4 h-4 animate-spin" />
@@ -119,12 +119,12 @@ const ResumeSection = ({
           </div>
           {selectedResume && (
             <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-700">
+              <span className="text-muted-foreground">
                 Selected: {selectedResume.name}
               </span>
               <button
                 onClick={onResumeCancel}
-                className="text-primary hover:underline"
+                className="text-primary hover:underline cursor-pointer"
               >
                 Cancel
               </button>

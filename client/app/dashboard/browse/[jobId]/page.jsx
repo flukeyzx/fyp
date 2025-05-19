@@ -74,7 +74,7 @@ export default function JobDetailsPage({ params }) {
       </div>
 
       <div>
-        <div className="rounded-2xl p-8 bg-gradient-to-r from-primary/5 to-primary/10 border-b border-border/50">
+        <div className="rounded-2xl p-8 bg-gradient-to-r from-primary/5 via-primary/8 to-primary/12 border-b border-border/50">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div className="flex items-start gap-6">
               <div
@@ -100,17 +100,6 @@ export default function JobDetailsPage({ params }) {
                   </p>
                   <span className="text-muted-foreground/50">•</span>
                   <p className="text-muted-foreground">{job.company.name}</p>
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="flex items-center justify-center bg-emerald-900/20 gap-2 p-4 rounded-xl">
-                <div className="bg-green-900/40 p-2 rounded-lg">
-                  <BriefcaseBusiness className="text-green-500" />
-                </div>
-                <div>
-                  <h2 className="text-sm opacity-90">Applications</h2>
-                  <p className="text-xs opacity-75">28 People Clicked Apply</p>
                 </div>
               </div>
             </div>

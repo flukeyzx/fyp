@@ -76,7 +76,7 @@ export default function SavedJobsPage() {
     <div className="p-2 min-h-screen">
       <div className="text-center mb-12">
         <h1 className="text-5xl font-bold">Saved Jobs</h1>
-        <p className="text-gray-400 mt-2">
+        <p className="text-muted-foreground mt-2">
           Here are the jobs that you have saved
         </p>
       </div>
