@@ -66,9 +66,9 @@ export default function Navbar() {
 
   return (
     <nav className="w-full bg-background text-foreground px-10 py-6 h-24 flex items-center justify-between z-50">
-      <div className="flex items-center gap-4">
-        <div className="px-12 py-3 rounded-lg bg-transparent cursor-pointer shadow-[0_0_20px_rgba(0,131,102,0.3)] dark:shadow-[0_0_15px_rgba(0,255,255,0.3)] hover:shadow-[0_0_25px_rgba(0,131,102,0.7)] dark:hover:shadow-[0_0_25px_rgba(0,255,255,0.6)] transition-shadow duration-300">
-          <img src="/assets/joblix.svg" alt="Logo" className="h-5 w-auto" />
+      <div className="flex items-center pt-2 gap-4">
+        <div className="px-8 py-3 rounded-lg bg-transparent cursor-pointer">
+          <img src="/assets/joblix.svg" alt="Logo" className="h-8 w-auto" />
         </div>
       </div>
 

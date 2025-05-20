@@ -85,6 +85,15 @@ export function RightSidebar() {
 
   const markAllAsRead = async () => {
     setLoading(true);
+    if (notifications.length === 0) {
+      setLoading(false);
+      toast({
+        title: "No notifications to mark as read",
+        description: "You have no unread notifications.",
+        variant: "default",
+      });
+      return null;
+    }
     try {
       await markNotificationsAsRead(
         notifications.map((n) => n.id),
