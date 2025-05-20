@@ -1,0 +1,199 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  LOCAL
+  OAUTH
+}
+
+enum Plan {
+  FREE
+  STANDARD
+}
+
+enum JobStatus {
+  OPEN
+  CLOSE
+}
+
+model User {
+  id                      String           @id @default(uuid())
+  name                    String
+  email                   String           @unique
+  password                String?
+  bio                     String?
+  location                String?
+  isVerified              Boolean          @default(false)
+  avatar                  String?
+  resume                  String?
+  skills                  Json?
+  authProvider            AuthProvider     @default(LOCAL)
+  oAuthId                 String?          @unique
+  passwordResetToken      String?          @unique
+  passwordResetExpiry     DateTime?
+  emailVerificationToken  String?          @unique
+  emailVerificationExpiry DateTime?
+  subscriptionPlan        Plan             @default(FREE)
+  stripeCustomerId        String?
+  jobsAppliedThisMonth    Int              @default(0)
+  apiCallsThisMonth       Int              @default(0)
+  createdAt               DateTime         @default(now())
+  updatedAt               DateTime         @updatedAt
+
+  company                 Company?
+  jobApplication          JobApplication[]
+  savedJob                SavedJob[]
+  following               CompanyFollower[]
+  
+
+  @@index([subscriptionPlan])
+}
+
+model Job {
+  id               String    @id @default(uuid())
+  title            String
+  description      String
+  skills           String[]
+  location         String
+  minSalary        Int
+  maxSalary        Int
+  currency         String
+  status           JobStatus    @default(OPEN)
+  employmentType   String
+  experienceLevel  String
+  companyId        String
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  company        Company          @relation(fields: [companyId], references: [id])
+  jobApplication JobApplication[]
+  savedJob       SavedJob[]
+  
+  embedding  JobEmbedding? @relation("JobToEmbedding", fields: [embeddingId], references: [id], onDelete: Cascade)
+  embeddingId String?     @unique 
+}
+
+model Company {
+  id                    String   @id @default(uuid())
+  name                  String
+  about                 String
+  logo                  String
+  banner                String?
+  industry              String
+  location              String
+  employees             Int
+  website               String?
+  foundedYear           String
+  companyType           String
+  specialities          Json?
+  subscriptionPlan      Plan     @default(FREE)
+  stripeCustomerId      String?
+  jobsPostedThisMonth   Int      @default(0)
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  ownerId               String   @unique
+  owner                 User     @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  
+  job                   Job[]
+  followers             CompanyFollower[]
+
+  @@unique([ownerId, name])
+}
+
+enum Status {
+  PENDING
+  SHORTLISTED
+  ACCEPTED
+  REJECTED
+}
+
+model JobApplication {
+  id          String   @id @default(uuid())
+  applicantId String
+  jobId       String
+  proposal    String?
+  status      Status   @default(PENDING)
+  createdAt   DateTime @default(now())
+
+  job       Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  applicant User @relation(fields: [applicantId], references: [id], onDelete: Cascade)
+
+  @@index([applicantId])
+  @@index([jobId])
+}
+
+model SavedJob {
+  id        String   @id @default(uuid())
+  userId    String
+  jobId     String
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, jobId])
+  @@index([userId])
+  @@index([jobId])
+}
+
+model CompanyFollower {
+  id          String    @id @default(uuid())
+  userId      String
+  companyId   String
+  createdAt   DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company  Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+  @@index([companyId])
+  @@index([userId])
+}
+
+enum NotificationType {
+  FOLLOW
+  HIRING_UPDATE
+  NEW_JOB_POST
+  CUSTOM
+  SYSTEM
+  MESSAGE
+}
+
+enum EntityType {
+  USER
+  COMPANY
+}
+
+model Notification {
+  id          String    @id @default(uuid())
+  fromId      String?   
+  fromType    EntityType?
+  toId        String?   
+  toType      EntityType?
+  type        NotificationType
+  message     String
+  isRead      Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  @@index([fromId, fromType])
+  @@index([toId, toType])
+}
+
+model JobEmbedding {
+  id        String   @id @default(uuid())
+  job       Job?   @relation("JobToEmbedding")
+  embedding Bytes    
+}
