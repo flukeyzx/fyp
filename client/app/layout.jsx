@@ -3,9 +3,6 @@ import QueryProvider from "@/components/providers/QueryProvider";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 import ThemeProvider from "@/context/ThemeContext";
-import TokenProvider from "@/context/TokenContext";
-import { cookies } from "next/headers";
-import AuthProvider from "@/context/AuthContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -13,9 +10,6 @@ const inter = Inter({
 });
 
 export default async function RootLayout({ children }) {
-  const cookieStore = await cookies();
-  const authToken = cookieStore.get("authToken")?.value;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -27,16 +21,12 @@ export default async function RootLayout({ children }) {
         className={`${inter.className} antialiased`}
         suppressHydrationWarning={true}
       >
-        <TokenProvider initialToken={authToken}>
-          <ThemeProvider>
-            <QueryProvider>
-              <AuthProvider authToken={authToken}>
-                <Toaster />
-                <main>{children}</main>
-              </AuthProvider>
-            </QueryProvider>
-          </ThemeProvider>
-        </TokenProvider>
+        <ThemeProvider>
+          <QueryProvider>
+            <Toaster />
+            <main>{children}</main>
+          </QueryProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

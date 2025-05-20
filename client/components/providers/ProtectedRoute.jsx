@@ -1,47 +1,27 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
-import axios from "@/lib/axios.config";
 import LoadingSpinner from "../ui/loader";
+import { useAuth } from "@/context/AuthContext";
 
 export default function ProtectedRoute({ children }) {
   const router = useRouter();
 
-  const { data: authenticatedUser, isLoading } = useQuery({
-    queryKey: ["profile"],
-    queryFn: async () => {
-      try {
-        const response = await axios.get("/auth/profile");
-
-        if (!response || !response.data || response.status !== 200) {
-          throw new Error("User not authenticated");
-        }
-
-        return response.data;
-      } catch (error) {
-        throw new Error("User not authenticated.");
-      }
-    },
-  });
+  const { user, isLoading } = useAuth();
 
   useEffect(() => {
-    if (!isLoading && !authenticatedUser) {
+    if (!isLoading && user === null) {
       router.push("/auth/login");
     }
-  }, [isLoading, authenticatedUser, router]);
+  }, [user, isLoading, router]);
 
-  if (isLoading) {
+  if (isLoading || user === undefined) {
     return (
-      <div className="-mt-36">
+      <div className="flex items-center justify-center h-screen -mt-36">
         <LoadingSpinner />
       </div>
     );
-  }
-
-  if (!authenticatedUser) {
-    return null;
   }
 
   return <>{children}</>;

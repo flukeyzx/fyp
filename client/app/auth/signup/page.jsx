@@ -72,7 +72,7 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-primary-medium to-background px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background/80 via-primary/30 to-background/90 px-4">
       <div className="w-full max-w-md rounded-2xl text-white">
         <div className="text-center mb-8">
           <div className="mb-5 flex items-center justify-center">
@@ -85,7 +85,7 @@ export default function Signup() {
             type="text"
             {...form.register("name")}
             placeholder="e.g. John Doe"
-            className="bg-background border border-gray-700 text-foreground"
+            className="!h-12 !px-4 bg-background text-foreground"
           />
           {form.formState.errors.name && (
             <p className="text-red-500 text-sm -mt-2">
@@ -97,7 +97,7 @@ export default function Signup() {
             type="email"
             {...form.register("email")}
             placeholder="johndoe@email.com"
-            className="bg-background border border-gray-700 text-foreground"
+            className="!h-12 !px-4 bg-background  text-foreground"
           />
           {form.formState.errors.email && (
             <p className="text-red-500 text-sm -mt-2">
@@ -109,7 +109,7 @@ export default function Signup() {
             type="password"
             {...form.register("password")}
             placeholder="Enter your password"
-            className="bg-background border border-gray-700 text-foreground"
+            className="!h-12 !px-4 bg-background  text-foreground"
           />
           {form.formState.errors.password && (
             <p className="text-red-500 text-sm -mt-2">
@@ -126,7 +126,7 @@ export default function Signup() {
             disabled={
               Object.keys(form.formState.errors).length > 0 || isPending
             }
-            className="w-full py-5 text-black bg-white hover:bg-gray-200 font-semibold"
+            className="w-full py-5.5 cursor-pointer text-black bg-white hover:bg-gray-200 font-semibold"
           >
             {isPending ? <Loader className="animate-spin" /> : "Sign up"}
           </Button>
@@ -153,7 +153,7 @@ export default function Signup() {
           onClick={() => {
             window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/google`;
           }}
-          className="w-full py-5 bg-background text-foreground cursor-pointer hover:bg-background/80"
+          className="w-full !py-6 bg-background text-foreground cursor-pointer hover:bg-background/80"
         >
           <img
             src="/assets/google.svg"

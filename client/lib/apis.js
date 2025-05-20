@@ -699,3 +699,133 @@ export async function getTopFollowedCompanies(token) {
     throw error;
   }
 }
+
+export async function logoutUser(token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/logout`,
+      {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Error while logging out.");
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while logging out.", error.message);
+    throw error;
+  }
+}
+
+export async function generateProfileDataThroughResume(resume, token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/gemini/generate-profile-data`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ resume }),
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Error while generating profile data.");
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while generating profile data.", error.message);
+    throw error;
+  }
+}
+
+export async function getAllNotifications(token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/notifications`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    console.log(data);
+    if (!res.ok && res.status !== 404) {
+      throw new Error(
+        data.message || "Error while fetching unread notifications."
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while fetching unread notifications.", error.message);
+    throw error;
+  }
+}
+
+export async function markNotificationsAsRead(notificationIds, token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/notifications/mark-read`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ notificationsIds: notificationIds }),
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Error while marking notifications.");
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while marking notifications.", error.message);
+    throw error;
+  }
+}
+
+export async function deleteNotification(notificationId, token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/notifications/${notificationId}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data.message || "Error while deleting notification.");
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while deleting notification.", error.message);
+    throw error;
+  }
+}

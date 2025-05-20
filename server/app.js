@@ -16,6 +16,7 @@ import resumeRoutes from "./routes/resume.routes.js";
 import stripeRoutes from "./routes/stripe.routes.js";
 import geminiRoutes from "./routes/gemini.routes.js";
 import applicationRoutes from "./routes/application.routes.js";
+import notificationRoutes from "./routes/notification.routes.js";
 
 export const app = express();
 config({
@@ -47,5 +48,6 @@ app.use("/api/company", companyRoutes);
 app.use("/api/resume", resumeRoutes);
 app.use("/api/gemini", geminiRoutes);
 app.use("/api/applications", applicationRoutes);
+app.use("/api/notifications", notificationRoutes);
 
 app.use(multerErrorHandler);

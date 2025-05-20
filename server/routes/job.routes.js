@@ -11,7 +11,6 @@ import {
   updateJob,
   submitJobApplication,
 } from "../controllers/job.controller.js";
-import { checkJobCreationLimit } from "../middlewares/stripe.middleware.js";
 
 const router = Router();
 

@@ -93,8 +93,8 @@ export default function JobApplicationsList() {
                 onClick={() => setActiveFilter(filter)}
                 className={`px-4 py-2 text-sm font-medium flex-1 cursor-pointer ${
                   activeFilter === filter
-                    ? "bg-gradient-to-r from-secondary/70 via-primary/70 to-primary/90 text-secondary-foreground"
-                    : "text-secondary-foreground/70 hover:bg-gradient-to-r from-primary/70 to-primary/90 via-secondary/70 hover:text-secondary-foreground/90"
+                    ? "bg-secondary text-secondary-foreground"
+                    : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground/90"
                 }`}
               >
                 {filter.charAt(0).toUpperCase() + filter.slice(1)}
@@ -109,8 +109,8 @@ export default function JobApplicationsList() {
               onClick={() => setDateSort(sort)}
               className={`px-4 py-2 text-sm font-medium flex items-center gap-2 cursor-pointer ${
                 dateSort === sort
-                  ? "bg-gradient-to-r from-secondary/70 via-primary/70 to-primary/90 text-secondary-foreground"
-                  : "text-secondary-foreground/70 hover:bg-gradient-to-r from-primary/70 to-primary/90 via-secondary/7 hover:text-secondary-foreground/60"
+                  ? "bg-secondary text-secondary-foreground"
+                  : "text-secondary-foreground/70 hover:bg-secondary hover:text-secondary-foreground/60"
               }`}
             >
               <Calendar className="w-4 h-4" />

@@ -42,14 +42,27 @@ export const createJob = async (req, res) => {
       },
     });
 
-    // await prisma.company.update({
-    //   where: {
-    //     id: company.id,
-    //   },
-    //   data: {
-    //     jobsPostedThisMonth: { increment: 1 },
-    //   },
-    // });
+    const followers = await prisma.companyFollower.findMany({
+      where: {
+        companyId: company.id,
+      },
+      select: {
+        userId: true,
+      },
+    });
+
+    const notifications = followers.map((follower) => ({
+      fromId: company.id,
+      fromType: "COMPANY",
+      toId: follower.userId,
+      toType: "USER",
+      type: "NEW_JOB",
+      message: `New job ${title} posted by ${company.name}`,
+    }));
+
+    await prisma.notification.createMany({
+      data: notifications,
+    });
 
     return res
       .status(201)
@@ -399,6 +412,35 @@ export const submitJobApplication = async (req, res) => {
         jobId,
         proposal,
       },
+      include: {
+        job: {
+          include: {
+            company: true,
+          },
+        },
+        applicant: true,
+      },
+    });
+
+    await prisma.notification.createMany({
+      data: [
+        {
+          fromId: applicantId,
+          fromType: "USER",
+          toId: application.job.company.ownerId,
+          toType: "COMPANY",
+          type: "JOB_APPLICATION",
+          message: `New job application for ${application.job.title} by ${application.applicant.name}`,
+        },
+        {
+          fromId: application.job.company.ownerId,
+          fromType: "COMPANY",
+          toId: applicantId,
+          toType: "USER",
+          type: "APPLICATION_SUBMITTED",
+          message: `Your application for ${application.job.title} at ${application.job.company.name} has been submitted.`,
+        },
+      ],
     });
 
     return res.status(201).json({

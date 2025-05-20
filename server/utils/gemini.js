@@ -44,3 +44,22 @@ export const getAtsScoreWithAI = async (resume, description) => {
 
   return res.response.text().trim();
 };
+
+export const generateProfileDataThroughResume = async (resume) => {
+  const res = await gemini.generateContent(
+    `Extract the following from the resume: skills (limit to 5–8 based on user experience), location (city, country), experience, profile, and education.
+
+    Return only a valid JSON object in this exact structure — no extra text or explanation:
+
+    {
+      "user_description": "Concise summary under 400 words.",
+      "skills": ["skill1", "skill2", "skill3", "skill4", "skill5"],
+      "location": "city, country"
+    }
+
+    Resume:
+    ${resume}`
+  );
+
+  return res.response.text();
+};

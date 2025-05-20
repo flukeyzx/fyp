@@ -59,7 +59,6 @@ export default function CompanyManage() {
   return company ? (
     <div className="space-y-8">
       <CompanyProfile company={company} />
-      <CompanyDashboard />
       <JobList jobs={jobs} />
     </div>
   ) : (

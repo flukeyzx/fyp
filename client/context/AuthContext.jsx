@@ -17,7 +17,6 @@ export default function AuthProvider({ authToken, children }) {
   } = useQuery({
     queryKey: ["getProfile"],
     queryFn: () => fetchUserProfile(authToken),
-    enabled: !!authToken,
     select: (data) => data.user,
   });
 
@@ -36,7 +35,7 @@ export default function AuthProvider({ authToken, children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, refetch }}>
+    <AuthContext.Provider value={{ user, refetch, isLoading }}>
       {children}
     </AuthContext.Provider>
   );

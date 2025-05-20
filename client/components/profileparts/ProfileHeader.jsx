@@ -187,7 +187,7 @@ const ProfileHeader = ({
       <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center">
         <Button
           onClick={onEdit}
-          className="gap-2 bg-gradient-to-r from-secondary/70 via-primary/70 to-primary/90 text-secondary-foreground hover:bg-secondary/80  cursor-pointer"
+          className="gap-2 bg-secondary text-secondary-foreground hover:bg-secondary/80  cursor-pointer"
         >
           <Pencil className="w-4 h-4" />
           Edit Profile

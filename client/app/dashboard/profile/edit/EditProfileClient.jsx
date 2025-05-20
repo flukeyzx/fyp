@@ -74,7 +74,7 @@ export default function EditProfileClient({ user, token, refetch }) {
     if (
       skill &&
       !formData.skills.includes(skill) &&
-      formData.skills.length < 8
+      formData.skills.length < 20
     ) {
       setFormData((prev) => ({
         ...prev,
@@ -94,8 +94,8 @@ export default function EditProfileClient({ user, token, refetch }) {
   const validateForm = () => {
     const newErrors = {};
     if (!formData.name.trim()) newErrors.name = "Name is required";
-    if (formData.bio.length > 400) {
-      newErrors.bio = "Bio must be 400 characters or less";
+    if (formData.bio.length > 800) {
+      newErrors.bio = "Bio must be 800 characters or less";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -227,10 +227,10 @@ export default function EditProfileClient({ user, token, refetch }) {
             className="!h-10"
           />
           <p className="mt-1 text-sm text-muted-foreground">
-            {formData.skills.length >= 8 ? (
-              <span className="text-red-500">Maximum of 8 skills reached</span>
+            {formData.skills.length >= 20 ? (
+              <span className="text-red-500">Maximum of 20 skills reached</span>
             ) : (
-              `Add skills by pressing Enter (${formData.skills.length}/8)`
+              `Add skills by pressing Enter (${formData.skills.length}/20)`
             )}
           </p>
 
@@ -278,12 +278,12 @@ export default function EditProfileClient({ user, token, refetch }) {
             <p
               className={cn(
                 "text-sm ml-auto",
-                formData.bio.length > 400
+                formData.bio.length > 800
                   ? "text-red-500"
                   : "text-gray-500 dark:text-gray-400"
               )}
             >
-              {formData.bio.length}/400
+              {formData.bio.length}/800
             </p>
           </div>
         </div>

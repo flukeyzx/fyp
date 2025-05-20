@@ -1,3 +1,5 @@
+"use client";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   FileText,
@@ -6,10 +8,17 @@ import {
   UploadCloud,
   ArrowUpRight,
   Loader,
+  Sparkles,
+  Loader2,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useCallback, useRef } from "react";
+import { useCallback, useRef, useState } from "react";
+import { generateProfileDataThroughResume } from "@/lib/apis";
+import { useToken } from "@/context/TokenContext";
+import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/context/AuthContext";
+import { set } from "zod";
 
 const ResumeSection = ({
   user,
@@ -19,7 +28,11 @@ const ResumeSection = ({
   onResumeUpload,
   onResumeCancel,
 }) => {
+  const [loading, setLoading] = useState(false);
   const inputRef = useRef(null);
+  const { authToken } = useToken();
+  const { toast } = useToast();
+  const { refetch } = useAuth();
 
   const handleDrop = useCallback(
     (event) => {
@@ -43,9 +56,63 @@ const ResumeSection = ({
   return (
     <Card className="border-0 shadow-sm">
       <CardHeader className="pb-4">
-        <CardTitle className="text-xl flex text-foreground items-center gap-2">
-          <FileText className="w-5 h-5 text-primary" />
-          Resume
+        <CardTitle className="text-xl flex text-foreground items-center justify-between gap-2">
+          <div className="flex items-center gap-2">
+            <FileText className="w-5 h-5 text-primary" />
+            Resume
+          </div>
+          {user.resume && (
+            <div className="font-normal text-sm">
+              <Button
+                disabled={loading}
+                onClick={async () => {
+                  setLoading(true);
+                  if (!user.resume) {
+                    toast({
+                      title: "No resume uploaded",
+                      description:
+                        "Please upload a resume to generate profile data.",
+                      variant: "destructive",
+                    });
+                    setLoading(false);
+                    return;
+                  }
+                  try {
+                    await generateProfileDataThroughResume(
+                      user.resume,
+                      authToken
+                    );
+                    toast({
+                      title: "Profile data generated",
+                      description:
+                        "Your profile data has been generated using AI.",
+                      variant: "default",
+                    });
+                    refetch();
+                  } catch (error) {
+                    console.error("Error generating profile data:", error);
+                    toast({
+                      title: "Error",
+                      description: "Failed to generate profile data.",
+                      variant: "destructive",
+                    });
+                  } finally {
+                    setLoading(false);
+                  }
+                }}
+                className="cursor-pointer bg-gradient-to-r from-primary to-secondary/80 text-primary-foreground hover:opacity-90 hover:scale-[1.02] transition"
+              >
+                {loading ? (
+                  <Loader2 className="animate-spin" />
+                ) : (
+                  <>
+                    <Sparkles />
+                    generate profile data using AI
+                  </>
+                )}
+              </Button>
+            </div>
+          )}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">

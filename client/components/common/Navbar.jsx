@@ -12,35 +12,50 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Button } from "./../ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { useTheme } from "@/context/ThemeContext";
+import { logoutUser } from "@/lib/apis";
+import { useToast } from "@/hooks/use-toast";
+import { useToken } from "@/context/TokenContext";
 
 export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isThemeOpen, setIsThemeOpen] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const router = useRouter();
-  const { user } = useAuth();
+  const { user, refetch } = useAuth();
   const { setTheme } = useTheme();
+  const { authToken, setAuthToken } = useToken();
+  const { toast } = useToast();
 
   const dropdownRef = useRef(null);
 
   useEffect(() => {
     if (user?.avatar) {
       setProfileImage(user.avatar);
+    } else {
+      setProfileImage(null);
     }
   }, [user]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    router.push("/login");
+  const handleLogout = async () => {
+    await logoutUser(authToken);
+    toast({
+      title: "Logout Successful",
+      description: "You have been logged out successfully.",
+      variant: "default",
+    });
+    setAuthToken(null);
+    setProfileImage(null);
+    refetch();
+    router.push("/");
     setIsDropdownOpen(false);
   };
 
   const handleOutsideClick = (event) => {
     if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
       setIsDropdownOpen(false);
+      setIsThemeOpen(false);
     }
   };
 
@@ -70,7 +85,7 @@ export default function Navbar() {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <User size={20} className="text-gray-600" />
+              <User size={20} className="text-muted-foreground" />
             )}
           </button>
 

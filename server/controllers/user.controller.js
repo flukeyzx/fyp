@@ -191,11 +191,11 @@ export const getProfileScore = async (req, res) => {
     const bio = user.bio ? user.bio.length : 0;
     if (bio <= 5) {
       profileScore += 0;
-    } else if (bio < 30) {
+    } else if (bio <= 30) {
       profileScore += 5;
-    } else if (bio < 30 && bio < 50) {
+    } else if (bio <= 50) {
       profileScore += 10;
-    } else if (bio < 50) {
+    } else {
       profileScore += 20;
     }
 

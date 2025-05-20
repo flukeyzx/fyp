@@ -166,7 +166,9 @@ model CompanyFollower {
 enum NotificationType {
   FOLLOW
   HIRING_UPDATE
-  NEW_JOB_POST
+  NEW_JOB
+  JOB_APPLICATION
+  APPLICATION_SUBMITTED
   CUSTOM
   SYSTEM
   MESSAGE

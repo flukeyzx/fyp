@@ -78,10 +78,11 @@ export const getUnReadNotifications = async (req, res) => {
       },
     });
 
-    if (!notifications) {
+    if (notifications.length === 0) {
       return res.status(404).json({
         success: false,
         message: "There are no unread notifications.",
+        notifications: [],
       });
     }
 
@@ -131,6 +132,36 @@ export const markNotificationsToRead = async (req, res) => {
     });
   } catch (error) {
     console.log("Error in markNotificationToRead controller.", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error.",
+    });
+  }
+};
+
+export const deleteNotification = async (req, res) => {
+  try {
+    const { notificationId } = req.params;
+
+    if (!notificationId) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid notificationId",
+      });
+    }
+
+    await prisma.notification.delete({
+      where: {
+        id: notificationId,
+      },
+    });
+
+    return res.status(200).json({
+      success: true,
+      message: "Notification deleted successfully.",
+    });
+  } catch (error) {
+    console.log("Error in deleteNotification controller.", error.message);
     return res.status(500).json({
       success: false,
       message: "Internal server error.",

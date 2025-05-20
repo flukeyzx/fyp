@@ -11,7 +11,6 @@ import {
 import Link from "next/link";
 import { useState } from "react";
 import { Input } from "../ui/input";
-import { Button } from "../ui/button";
 import { parseDate } from "@/lib/utils";
 
 export default function JobList({ jobs = [] }) {

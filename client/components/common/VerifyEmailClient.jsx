@@ -14,7 +14,6 @@ export default function VerifyEmailClient({ email }) {
   const [otp, setOtp] = useState("");
   const { toast } = useToast();
   const router = useRouter();
-  const { refetch } = useAuth();
 
   const decodedEmail = decodeURIComponent(email);
 
@@ -74,7 +73,6 @@ export default function VerifyEmailClient({ email }) {
       toast({
         title: "User registered successfully.",
       });
-      refetch();
       router.push("/");
     },
   });
@@ -88,10 +86,10 @@ export default function VerifyEmailClient({ email }) {
     sendOtp(otp);
   };
   return (
-    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-black via-cyan-900 to-blue-900 px-4">
+    <div className="min-h-screen flex flex-col justify-center items-center bg-gradient-to-br from-background/80 via-primary/30  to-background/90 px-4">
       <form
         onSubmit={handleSendOtp}
-        className="bg-gray-900 border border-gray-700 shadow-lg rounded-2xl p-8 max-w-md w-full text-white"
+        className="bg-gray-800 border border-border shadow-[0_0_25px_rgba(0,255,255,0.2)] rounded-2xl p-8 max-w-md w-full text-white space-y-6 transition-all duration-300"
       >
         <h2 className="text-2xl font-semibold text-center mb-6">
           Verify Your Email
@@ -111,7 +109,7 @@ export default function VerifyEmailClient({ email }) {
         <Button
           type="submit"
           disabled={isPendingSendOtp || isPendingResendOtp}
-          className="w-full mt-6 py-3 text-lg bg-white text-black font-semibold hover:bg-gray-200"
+          className="w-full mt-6 py-3 text-lg cursor-pointer bg-white text-black font-semibold hover:bg-gray-200"
         >
           {isPendingSendOtp ? <Loader className="animate-spin" /> : "Verify"}
         </Button>

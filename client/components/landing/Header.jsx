@@ -6,7 +6,7 @@ export default function Header() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <header className="flex justify-between items-center shadow-md p-4 h-15">
+    <header className="flex justify-between items-center shadow-md px-20 py-10 h-15">
       <img src="/assets/joblix.svg" alt="Joblix Logo" className="w-20 h-20" />
 
       <nav className="space-x-6 hidden md:block">

@@ -7,11 +7,17 @@ export default function CompanyProfile({ company }) {
   return (
     <div className="bg-card rounded-xl border border-border shadow-sm overflow-hidden">
       <div className="h-48 relative">
-        <img
-          src={company.banner}
-          alt="Company Banner"
-          className="w-full h-full object-cover"
-        />
+        {company.banner ? (
+          <img
+            src={company.banner}
+            alt="Company Banner"
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full bg-muted flex items-center justify-center text-muted-foreground text-lg font-medium">
+            No banner
+          </div>
+        )}
         <div className="absolute -bottom-16 left-6">
           <div className="h-32 w-32 rounded-xl border-2 border-white overflow-hidden shadow-md">
             <img
