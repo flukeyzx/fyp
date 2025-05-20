@@ -235,3 +235,44 @@ export const getProfileScore = async (req, res) => {
     });
   }
 };
+
+export const getUserPublicProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (!userId) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide a userID",
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        id: userId,
+      },
+      omit: {
+        password: true,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found.",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User's public profile fetched successfully.",
+      user,
+    });
+  } catch (error) {
+    console.error(`Error in getUserPublicProfile controller: ${error.message}`);
+    return res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};

@@ -15,6 +15,8 @@ import {
   Loader2,
   Cross,
   X,
+  ArrowBigRight,
+  MoveUpRight,
 } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
@@ -221,26 +223,40 @@ export default function ApplicantDetail({ params }) {
                     {application.applicant.name.charAt(0)}
                   </div>
                 )}
-                <div>
-                  <h1 className="flex flex-col gap-0.5">
-                    <span className="text-3xl font-bold text-foreground">
-                      {application.applicant.name}{" "}
-                    </span>
-                    <span className="text-sm text-muted-foreground">
-                      {application.applicant.email}
-                    </span>
-                  </h1>
-                  <div className="flex flex-wrap items-center gap-3 mt-3">
-                    <span
-                      className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${status.color}`}
-                    >
-                      {status.icon}
-                      <span className="ml-1.5">{status.label}</span>
-                    </span>
-                    <span className="text-muted-foreground text-sm">
-                      Applied on {parseDate(application.createdAt)}
-                    </span>
+                <div className="flex items-center justify-between w-lg">
+                  <div>
+                    <h1 className="flex flex-col gap-0.5">
+                      <span className="text-3xl font-bold text-foreground">
+                        {application.applicant.name}{" "}
+                      </span>
+                      <span className="text-sm text-muted-foreground">
+                        {application.applicant.email}
+                      </span>
+                    </h1>
+                    <div className="flex flex-wrap items-center gap-3 mt-3">
+                      <span
+                        className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-medium ${status.color}`}
+                      >
+                        {status.icon}
+                        <span className="ml-1.5">{status.label}</span>
+                      </span>
+                      <span className="text-muted-foreground text-sm">
+                        Applied on {parseDate(application.createdAt)}
+                      </span>
+                    </div>
                   </div>
+
+                  <Button
+                    onClick={() =>
+                      router.push(
+                        `/dashboard/profile/public/${application.applicant.id}`
+                      )
+                    }
+                    className="cursor-pointer bg-secondary text-secondary-foreground hover:bg-secondary/80"
+                  >
+                    <MoveUpRight />
+                    View Public Profile
+                  </Button>
                 </div>
               </div>
               <div className="space-y-4">

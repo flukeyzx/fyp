@@ -829,3 +829,29 @@ export async function deleteNotification(notificationId, token) {
     throw error;
   }
 }
+
+export async function getUserPublicProfile(userId, token) {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${userId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const data = await res.json();
+    if (!res.ok && res.status !== 404) {
+      throw new Error(
+        data.message || "Error while fetching user's public profile."
+      );
+    }
+
+    return data;
+  } catch (error) {
+    console.log("Error while fetching user's public profile.", error.message);
+    throw error;
+  }
+}

@@ -1,6 +1,7 @@
 import { Router } from "express";
 import {
   getProfileScore,
+  getUserPublicProfile,
   updateUserPassword,
   updateUserProfile,
 } from "../controllers/user.controller.js";
@@ -17,5 +18,6 @@ router.post(
   updateUserProfile
 );
 router.post("/update-password", checkAuthentication, updateUserPassword);
+router.get("/:userId", checkAuthentication, getUserPublicProfile);
 
 export default router;
