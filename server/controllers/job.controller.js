@@ -172,6 +172,9 @@ export const getAllJobs = async (req, res) => {
       include: {
         company: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     if (jobs.length < 0) {
